@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftDate
 
 class Event: Codable {
     var id: String
@@ -32,6 +33,22 @@ class Event: Codable {
     
     func isFavouriteEvent() -> Bool {
         return UserDefaultsManager.shared.favouriteEvents[id] != nil
+    }
+    
+    func startDate() -> Date {
+        guard let startTime = eventDates.startingDay else { return Date()}
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return dateFormatter.date(from: startTime) ?? Date()
+    }
+    
+    func endDate() -> Date? {
+        guard let stopTime = eventDates.endingDay else { return nil }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        return dateFormatter.date(from: stopTime)
     }
 }
 

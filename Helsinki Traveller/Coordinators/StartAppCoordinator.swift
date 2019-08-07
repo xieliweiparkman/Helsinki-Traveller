@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 enum StartAppTransition: Transition {
-    case showMainScreen(coordinator: Coordinator, eventData: EventData, activities: [Activity], placeData: PlaceData)
+    case showMainScreen(coordinator: Coordinator, eventData: EventData, activities: [Activity]?, placeData: PlaceData)
     case showLoadingScreen(coordinator: Coordinator)
 }
 
@@ -59,7 +59,7 @@ final class StartAppCoordinator: AppCoordinator {
         case .showMainScreen(let coordinator, let eventData, let activities, let placeData):
             print("Show main view")
             let mainCoordinator = MainCoordinator(eventData: eventData,
-                                                  activities: activities,
+                                                  activities: nil,
                                                   placeData: placeData)
             
             rootViewController = mainCoordinator.rootViewController

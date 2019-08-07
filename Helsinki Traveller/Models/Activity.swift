@@ -103,7 +103,7 @@ struct Tag: Codable {
 
 struct WhereWhenDuration: Codable {
     let whereAndWhen: String
-    let duration: String
+    let duration: String?
     
     enum CodingKeys: String, CodingKey {
         case whereAndWhen = "where_and_when"

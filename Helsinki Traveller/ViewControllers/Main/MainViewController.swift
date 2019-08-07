@@ -29,7 +29,7 @@ class MainViewController: UIViewController {
             .observe([String: Event].self, "favouriteEvents")
             .subscribe(onNext: { [weak self] _ in
                 self?.viewModel.favouriateEvents.accept(UserDefaultsManager.shared.favouriteEventsArray())
-                self?.tableView.reloadData()
+                //self?.tableView.reloadData()
             }).disposed(by: bag)
     }
     
@@ -37,6 +37,45 @@ class MainViewController: UIViewController {
         viewModel.cleanEvents.subscribe(onNext: { [weak self] _ in
             self?.tableView.reloadData()
         }).disposed(by: bag)
+        
+        viewModel.didAddedEvent.subscribe(onNext: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.didAddEventToAlert()
+        }).disposed(by: bag)
+        
+        viewModel.didRemovedEvent.subscribe(onNext: { [weak self] _ in
+            guard let strongSelf = self else { return }
+            strongSelf.didRemoveEventFromAlert()
+        }).disposed(by: bag)
+        
+        viewModel.error.subscribe(onNext: { [weak self] error in
+            guard let strongSelf = self else { return }
+            strongSelf.showErrorAlert(error: error.description)
+        }).disposed(by: bag)
+    }
+    
+    func didAddEventToAlert() {
+        let alert = UIAlertController(title: "Did add this event to your calendar", message: nil, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.view.tintColor = UIColor.appGreenColor()
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func didRemoveEventFromAlert() {
+        let alert = UIAlertController(title: "Did remove this event from your calendar", message: nil, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.view.tintColor = UIColor.appGreenColor()
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func showErrorAlert(error: String) {
+        let alert = UIAlertController(title: "Oops", message: error, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.view.tintColor = UIColor.appGreenColor()
+        alert.addAction(ok)
+        present(alert, animated: true, completion: nil)
     }
 }
 
@@ -102,13 +141,24 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "FavouriteTableViewCell", for: indexPath) as! FavouriteTableViewCell
         cell.viewModel = viewModel
+        cell.configure()
         cell.tag = indexPath.section
+        cell.collectionView.tag = indexPath.section
         cell.collectionView.reloadData()
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        (cell as! FavouriteTableViewCell).collectionView.reloadData()
+        guard let cell = cell as? FavouriteTableViewCell else { return }
+        cell.collectionView.reloadData()
+        cell.collectionView.contentOffset.x = viewModel.storedOffsets[cell.tag] ?? 0
+
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard let cell = cell as? FavouriteTableViewCell else { return }
+        viewModel.storedOffsets[cell.tag] = cell.collectionView.contentOffset.x
+
     }
     
     func setupTableView() {

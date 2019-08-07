@@ -10,7 +10,7 @@ import Foundation
 import RxSwift
 
 enum LoadingTransition: Transition {
-    case showMainScreen(eventData: EventData, activities: [Activity], placeData: PlaceData)
+    case showMainScreen(eventData: EventData, activities: [Activity]?, placeData: PlaceData)
 }
 
 class LoadingCoordinator: AppCoordinator {
@@ -49,7 +49,7 @@ class LoadingCoordinator: AppCoordinator {
         case .showMainScreen(let eventData, let activities, let placeData):
             self.outputTransition.onNext(.showMainScreen(coordinator: self,
                                                          eventData: eventData,
-                                                         activities: activities,
+                                                         activities: nil,
                                                          placeData: placeData))
         }
     }

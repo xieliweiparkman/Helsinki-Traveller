@@ -21,6 +21,6 @@ private extension EventAnnotationView {
         guard annotation is EventAnnotation else { fatalError("Unexpected annotation type: \(annotation)") }
         markerTintColor = .purple
         glyphImage = UIImage(named: "MyHel")
-        clusteringIdentifier = String(describing: EventAnnotationView.self)
+        clusteringIdentifier = nil// String(describing: EventAnnotationView.self)
     }
 }

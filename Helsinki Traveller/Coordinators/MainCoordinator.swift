@@ -29,7 +29,7 @@ class MainCoordinator: NSObject, AppCoordinator {
         
     fileprivate let bag = DisposeBag()
     
-    init(eventData: EventData, activities: [Activity], placeData: PlaceData) {
+    init(eventData: EventData, activities: [Activity]?, placeData: PlaceData) {
         rootViewController = UINavigationController()
         rootViewController.navigationBar.setBackgroundImage(UIImage(), for: .default)
         rootViewController.navigationBar.shadowImage = UIImage()

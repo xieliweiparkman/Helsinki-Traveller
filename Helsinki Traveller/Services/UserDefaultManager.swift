@@ -10,10 +10,13 @@ import Foundation
 
 private enum UserDefaultsKey {
     case favouriteEvents
-
+    case savedEvents
     var key: String {
         switch self {
+            
         case .favouriteEvents: return "favouriteEvents"
+        case .savedEvents: return "savedEvents"
+            
         }
     }
     
@@ -31,14 +34,25 @@ class UserDefaultsManager {
         }
     }
     
+    var savedEvents: [String: String] {
+        get {
+            return (UserDefaults.standard.object(forKey: UserDefaultsKey.savedEvents.key) as? [String : String]) ?? [:]
+        }
+        set(newValue) {
+            UserDefaults.standard.set(newValue, forKey: UserDefaultsKey.savedEvents.key)
+        }
+    }
+    
     func addOneFavouriteEvent(event: Event) {
         let title = event.name.en ?? event.name.fi ?? ""
         let des = (event.description.body ?? "").convertHtml().string
         let url = event.description.images?.count == 0 ? "" : event.description.images?[0].url ?? ""
+        let modifiedAt = event.modifiedAt
         let dict = ["id": event.id,
                     "title": title,
                     "des": des,
-                    "url": url
+                    "url": url,
+                    "modifiedAt": modifiedAt
                     ]
         favouriteEvents[event.id] = dict
     }
@@ -52,6 +66,9 @@ class UserDefaultsManager {
         for event in favouriteEvents {
             events.append(event.value as! [String : Any])
         }
-        return events
+        
+        let sortedEvents = events.sorted { ($0["modifiedAt"] as! String) < ($1["modifiedAt"] as! String) }
+
+        return sortedEvents
     }
 }

@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class FavouriteTableViewCell: UITableViewCell {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
     var viewModel: MainViewModelProtocol!
-    
+    fileprivate var onReuseBag = DisposeBag()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         collectionView.delegate = self
@@ -24,6 +27,19 @@ class FavouriteTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        onReuseBag = DisposeBag()
+    }
+    
+    func configure() {
+        viewModel.favouriateEvents.subscribe(onNext: { [weak self] _ in
+            if self?.collectionView.tag == 0 || self?.collectionView.tag == 1 {
+                self?.collectionView.reloadData()
+            }
+        }).disposed(by: onReuseBag)
     }
 
 }
@@ -43,6 +59,7 @@ extension FavouriteTableViewCell: UICollectionViewDelegate, UICollectionViewData
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FavouriteCollectionViewCell", for: indexPath) as! FavouriteCollectionViewCell
+
         cell.layoutSubviews()
         cell.viewModel = viewModel
         if tag == 0 {
@@ -63,7 +80,8 @@ extension FavouriteTableViewCell: UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let imageView = (cell as! FavouriteCollectionViewCell).bgImageView
+        guard let cell = cell as? FavouriteCollectionViewCell else { return }
+        let imageView = cell.bgImageView
         
         if tag == 0 {
             let event = viewModel.favouriateEvents.value[indexPath.row]
@@ -90,6 +108,10 @@ extension FavouriteTableViewCell: UICollectionViewDelegate, UICollectionViewData
                 imageView?.setImage(urlString: url.cleanUrl())
             }
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        guard let cell = cell as? FavouriteCollectionViewCell else { return }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

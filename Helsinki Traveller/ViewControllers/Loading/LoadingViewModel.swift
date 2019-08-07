@@ -32,7 +32,7 @@ class LoadingViewModel: LoadingViewModelProtocol {
     
     func setup() {
         guard let provider = provider else { return }
-        let params: [String: Any] = ["limit": 20,
+        let params: [String: Any] = ["limit": 50,
                                      "start": 0]
     
         Observable.zip(provider.getEvents(params: params),
