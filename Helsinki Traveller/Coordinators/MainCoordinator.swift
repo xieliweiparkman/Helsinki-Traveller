@@ -12,7 +12,8 @@ import RxSwift
 
 enum MainTransition: Transition {
     case popViewController(animated: Bool)
-    case ShowMapViewController(isEvent: Bool)
+    case showMapViewController(isEvent: Bool)
+    case showDetailsViewController(viewModel: DetailsViewModel)
 }
 
 class MainCoordinator: NSObject, AppCoordinator {
@@ -40,7 +41,7 @@ class MainCoordinator: NSObject, AppCoordinator {
                                            placeData: placeData)
         let frontVC: MainViewController = UIStoryboard(storyboardName: .Main).instantiateViewController()
         frontVC.viewModel = mainViewModel
-        frontVC.title = "My Helsinki"
+        frontVC.title = ""
         rootViewController.pushViewController(frontVC, animated: true)
         super.init()
         frontVC.viewModel.transition
@@ -61,11 +62,15 @@ class MainCoordinator: NSObject, AppCoordinator {
         switch transition {
         case .popViewController(let animated):
             rootViewController.popViewController(animated: animated)
-        case .ShowMapViewController(let isEvent):
+        case .showMapViewController(let isEvent):
             let mapVC: MapViewController =  UIStoryboard(storyboardName: .Main).instantiateViewController()
             let mapVM = MapViewModel(mainViewModel: mainViewModel, isEvent: isEvent)
             mapVC.viewModel = mapVM
             rootViewController.pushViewController(mapVC, animated: true)
+        case .showDetailsViewController(let vm):
+            let vc: DetailsViewController = UIStoryboard(storyboardName: .Main).instantiateViewController()
+            vc.viewModel = vm
+            rootViewController.pushViewController(vc, animated: true)
         }
     }
     

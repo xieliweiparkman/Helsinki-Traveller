@@ -64,5 +64,4 @@ class MapViewModel: MapViewModelProtocol {
         }
         self.annotations.accept(annotations)
     }
-    
 }

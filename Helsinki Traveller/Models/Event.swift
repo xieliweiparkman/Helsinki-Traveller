@@ -50,6 +50,23 @@ class Event: Codable {
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
         return dateFormatter.date(from: stopTime)
     }
+    
+    func tagsString() -> String {
+        if tags.count == 0 { return "" }
+        var string = ""
+        for tag in tags {
+            string += "#\(tag.name), "
+        }
+        string.removeLast(2)
+        return string
+    }
+    
+    func startTimeString() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "dd.M.yyyy hh:mm"
+        return dateFormatter.string(from: startDate())
+    }
 }
 
 struct EventData: Codable {

@@ -29,7 +29,6 @@ class MainViewController: UIViewController {
             .observe([String: Event].self, "favouriteEvents")
             .subscribe(onNext: { [weak self] _ in
                 self?.viewModel.favouriateEvents.accept(UserDefaultsManager.shared.favouriteEventsArray())
-                //self?.tableView.reloadData()
             }).disposed(by: bag)
     }
     
@@ -123,14 +122,14 @@ extension MainViewController: UITableViewDelegate, UITableViewDataSource {
             view.addSubview(button)
             button.rx.tap.subscribe(onNext: { [weak self] _ in
                 guard let strongSelf = self else { return }
-                strongSelf.viewModel.transition.onNext(.ShowMapViewController(isEvent: true))
+                strongSelf.viewModel.transition.onNext(.showMapViewController(isEvent: true))
             }).disposed(by: bag)
         case 2:
             label.text = "Places"
             view.addSubview(button)
             button.rx.tap.subscribe(onNext: { [weak self] _ in
                 guard let strongSelf = self else { return }
-                strongSelf.viewModel.transition.onNext(.ShowMapViewController(isEvent: false))
+                strongSelf.viewModel.transition.onNext(.showMapViewController(isEvent: false))
             }).disposed(by: bag)
         default:
             label.text = "My favouriate events"

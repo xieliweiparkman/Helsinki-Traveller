@@ -26,6 +26,7 @@ protocol MainViewModelProtocol {
     var transition: PublishSubject<MainTransition> { get }
     var didTapFavouriteButton: PublishSubject<Event> { get }
     var didTapOnRemoveFavouriteButton: PublishSubject<String> { get }
+    var didTapOnGoToEventButton: PublishSubject<Event> { get }
     
     var didAddedEvent: PublishSubject<Void> { get }
     var didRemovedEvent: PublishSubject<Void> { get }
@@ -48,6 +49,7 @@ class MainViewModel: MainViewModelProtocol {
     let transition = PublishSubject<MainTransition>()
     let didTapFavouriteButton = PublishSubject<Event>()
     let didTapOnRemoveFavouriteButton = PublishSubject<String>()
+    let didTapOnGoToEventButton = PublishSubject<Event>()
     
     let didAddedEvent = PublishSubject<Void>()
     let didRemovedEvent = PublishSubject<Void>()
@@ -73,6 +75,11 @@ class MainViewModel: MainViewModelProtocol {
         didTapOnRemoveFavouriteButton.subscribe(onNext: { [weak self] eventId in
             guard let strongSelf = self else { return }
             strongSelf.removeOneFavouriteEvent(eventId: eventId)
+        }).disposed(by: bag)
+        
+        didTapOnGoToEventButton.subscribe(onNext: { [weak self] event in
+            guard let strongSelf = self else { return }
+            strongSelf.tapOnGoToEventDetails(event: event)
         }).disposed(by: bag)
         
         self.events.subscribe(onNext: { [weak self] events in
@@ -162,5 +169,15 @@ class MainViewModel: MainViewModelProtocol {
                 }
             }
         })
+    }
+    
+    func tapOnGoToEventDetails(event: Event) {
+        let vm = DetailsViewModel(id: event.id,
+                                  detailsType: .Event,
+                                  event: event,
+                                  place: nil,
+                                  activity: nil,
+                                  provider: MyAPIServices())
+        transition.onNext(.showDetailsViewController(viewModel: vm))
     }
 }

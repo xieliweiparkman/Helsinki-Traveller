@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6E1DD49422FD93CE00B0A2A4 /* DetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1DD49322FD93CE00B0A2A4 /* DetailsViewModel.swift */; };
+		6E1DD49622FDD80B00B0A2A4 /* ImagesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1DD49522FDD80B00B0A2A4 /* ImagesCollectionViewCell.swift */; };
+		6E1DD49822FDE51100B0A2A4 /* MapCardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1DD49722FDE51100B0A2A4 /* MapCardCollectionViewCell.swift */; };
 		6EA0EDA822F9718C00512D83 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0EDA722F9718C00512D83 /* AppDelegate.swift */; };
 		6EA0EDAD22F9718C00512D83 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6EA0EDAB22F9718C00512D83 /* Main.storyboard */; };
 		6EA0EDAF22F9718D00512D83 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6EA0EDAE22F9718D00512D83 /* Assets.xcassets */; };
@@ -51,11 +54,15 @@
 		6EA0EE1922FA0B1A00512D83 /* EventAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0EE1822FA0B1A00512D83 /* EventAnnotation.swift */; };
 		6EA0EE1B22FA0BDD00512D83 /* EventAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0EE1A22FA0BDD00512D83 /* EventAnnotationView.swift */; };
 		6EA0EE1D22FA111A00512D83 /* EventClusterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EA0EE1C22FA111A00512D83 /* EventClusterView.swift */; };
+		6EFBC10F22FCAE9A009488C9 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EFBC10E22FCAE9A009488C9 /* DetailsViewController.swift */; };
 		709AED32DA2659810473EEEA /* Pods_Helsinki_Traveller.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C74CDC1650DEC2467A89D18 /* Pods_Helsinki_Traveller.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		4C74CDC1650DEC2467A89D18 /* Pods_Helsinki_Traveller.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Helsinki_Traveller.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6E1DD49322FD93CE00B0A2A4 /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
+		6E1DD49522FDD80B00B0A2A4 /* ImagesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagesCollectionViewCell.swift; sourceTree = "<group>"; };
+		6E1DD49722FDE51100B0A2A4 /* MapCardCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCardCollectionViewCell.swift; sourceTree = "<group>"; };
 		6EA0EDA422F9718C00512D83 /* Helsinki Traveller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Helsinki Traveller.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6EA0EDA722F9718C00512D83 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6EA0EDAC22F9718C00512D83 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -102,6 +109,7 @@
 		6EA0EE1822FA0B1A00512D83 /* EventAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotation.swift; sourceTree = "<group>"; };
 		6EA0EE1A22FA0BDD00512D83 /* EventAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventAnnotationView.swift; sourceTree = "<group>"; };
 		6EA0EE1C22FA111A00512D83 /* EventClusterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventClusterView.swift; sourceTree = "<group>"; };
+		6EFBC10E22FCAE9A009488C9 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		86F7EACB7C5AFCDB6B782E24 /* Pods-Helsinki Traveller.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Helsinki Traveller.debug.xcconfig"; path = "Target Support Files/Pods-Helsinki Traveller/Pods-Helsinki Traveller.debug.xcconfig"; sourceTree = "<group>"; };
 		A64A9651B1E5CACE5EDE3100 /* Pods-Helsinki Traveller.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Helsinki Traveller.release.xcconfig"; path = "Target Support Files/Pods-Helsinki Traveller/Pods-Helsinki Traveller.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -184,6 +192,7 @@
 		6EA0EDBB22F971FE00512D83 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6EFBC10D22FCAE81009488C9 /* DetailView */,
 				6EA0EE1222FA00A000512D83 /* MapView */,
 				6EA0EDE722F9878900512D83 /* Main */,
 				6EA0EDE622F9878200512D83 /* Loading */,
@@ -287,6 +296,8 @@
 			isa = PBXGroup;
 			children = (
 				6EA0EDF822F9AB9000512D83 /* FavouriteCollectionViewCell.swift */,
+				6E1DD49522FDD80B00B0A2A4 /* ImagesCollectionViewCell.swift */,
+				6E1DD49722FDE51100B0A2A4 /* MapCardCollectionViewCell.swift */,
 			);
 			path = CollectionViewCells;
 			sourceTree = "<group>";
@@ -331,6 +342,15 @@
 				6EA0EE1C22FA111A00512D83 /* EventClusterView.swift */,
 			);
 			path = MapMarkers;
+			sourceTree = "<group>";
+		};
+		6EFBC10D22FCAE81009488C9 /* DetailView */ = {
+			isa = PBXGroup;
+			children = (
+				6EFBC10E22FCAE9A009488C9 /* DetailsViewController.swift */,
+				6E1DD49322FD93CE00B0A2A4 /* DetailsViewModel.swift */,
+			);
+			path = DetailView;
 			sourceTree = "<group>";
 		};
 		9D6FE792B8F1814F55715893 /* Frameworks */ = {
@@ -497,10 +517,13 @@
 				6EA0EDF622F9A83800512D83 /* FavouriteTableViewCell.swift in Sources */,
 				6EA0EE0E22F9C46300512D83 /* String+.swift in Sources */,
 				6EA0EDC922F974D900512D83 /* Constrants.swift in Sources */,
+				6E1DD49422FD93CE00B0A2A4 /* DetailsViewModel.swift in Sources */,
 				6EA0EDED22F987C300512D83 /* LoadingViewModel.swift in Sources */,
 				6EA0EDE522F9874500512D83 /* LoadingCoordinator.swift in Sources */,
 				6EA0EDDF22F9858800512D83 /* Coordinator+.swift in Sources */,
+				6EFBC10F22FCAE9A009488C9 /* DetailsViewController.swift in Sources */,
 				6EA0EDDD22F97EB500512D83 /* MainViewController.swift in Sources */,
+				6E1DD49822FDE51100B0A2A4 /* MapCardCollectionViewCell.swift in Sources */,
 				6EA0EDE122F985AB00512D83 /* MainCoordinator.swift in Sources */,
 				6EA0EE1D22FA111A00512D83 /* EventClusterView.swift in Sources */,
 				6EA0EDF122F9974400512D83 /* Event.swift in Sources */,
@@ -517,6 +540,7 @@
 				6EA0EDCB22F974F100512D83 /* DismissKeyboard.swift in Sources */,
 				6EA0EE1B22FA0BDD00512D83 /* EventAnnotationView.swift in Sources */,
 				6EA0EDE322F9862500512D83 /* StartAppCoordinator.swift in Sources */,
+				6E1DD49622FDD80B00B0A2A4 /* ImagesCollectionViewCell.swift in Sources */,
 				6EA0EE1422FA00D600512D83 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

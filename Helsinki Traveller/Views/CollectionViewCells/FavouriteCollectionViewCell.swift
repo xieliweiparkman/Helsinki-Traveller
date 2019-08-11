@@ -17,6 +17,7 @@ class FavouriteCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var desLabel: UILabel!
     @IBOutlet weak var baseView: UIView!
     @IBOutlet weak var addToFavouriteButton: UIButton!
+    @IBOutlet weak var goToDetailButton: UIButton!
     
     var viewModel: MainViewModelProtocol!
     fileprivate var onReuseBag = DisposeBag()
@@ -50,7 +51,7 @@ class FavouriteCollectionViewCell: UICollectionViewCell {
         }
         
         addToFavouriteButton.rx.tap.map { event }.bind(to: viewModel.didTapFavouriteButton).disposed(by: onReuseBag)
-        
+        goToDetailButton.rx.tap.map { event }.bind(to: viewModel.didTapOnGoToEventButton).disposed(by: onReuseBag)
         addShadow(roundView: false)
         titleLabel.text = event.name.en ?? event.name.fi ?? ""
         desLabel.text = (event.description.body ?? "").convertHtml().string
